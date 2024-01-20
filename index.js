@@ -1,11 +1,14 @@
 import express from "express";
 import { connectDb } from "./connect.js";
 import urlRoutes from "./routes/url.js";
+import UrlModel from "./models/url.js";
+import path from "path";
 
 const app = express();
 const PORT = 8000;
 
 app.set("view engine", "ejs");
+app.set("views", path.resolve("./views"));
 
 connectDb("mongodb://127.0.0.1:27017/short-url")
   .then(() => console.log("Mongo connected."))
@@ -13,8 +16,11 @@ connectDb("mongodb://127.0.0.1:27017/short-url")
 
 app.use(express.json());
 
-app.use("/test", (req, res) => {
-  return res.render("home");
+app.use("/home", async (req, res) => {
+  const allUrls = await UrlModel.find();
+  return res.render("home", {
+    urls: allUrls,
+  });
 });
 
 app.use("/url", urlRoutes);
