@@ -6,4 +6,4 @@ Then do `npm start` in terminal.
 
 Use Postman or ThunderClient to check the API requests and response.
 
-We can also see the tiny urls and redirectUrls in localhost `http://localhost:8000/home`
+We can also see the tiny urls and redirectUrls in localhost `http://localhost:8000/`

@@ -15,7 +15,7 @@ export const handleCreateShortURL = async (req, res) => {
       redirectUrl: body.url,
     });
 
-    return res.status(201).json({ message: "Success!", id: shortId });
+    return res.render("home", { id: shortId });
   } catch (error) {
     res.status(500).json({ error: "Something went wrong!" });
   }
@@ -48,12 +48,10 @@ export const handleGetUrlAnalytics = async (req, res) => {
   try {
     const url = await UrlModel.findOne({ shortId });
 
-    return res
-      .status(200)
-      .json({
-        totalClicks: url.visitHistory.length,
-        analytics: url.visitHistory,
-      });
+    return res.status(200).json({
+      totalClicks: url.visitHistory.length,
+      analytics: url.visitHistory,
+    });
   } catch (error) {
     return res.status(500).json({ error: "Something went wrong!" });
   }
